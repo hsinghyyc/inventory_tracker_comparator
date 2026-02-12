@@ -1,73 +1,76 @@
-# React + TypeScript + Vite
+# 📱 Inventory Tracker Comparator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A specialized React + TypeScript dashboard designed to synchronize and compare third-party Excel inventory data against the **SIM List** and **Cell Phone** records stored in your .NET backend.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠 Environment Requirements
 
-## React Compiler
+This project requires a specific Node.js environment to maintain compatibility with Vite 7 and our linting suite.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Development Workflow
 
-## Expanding the ESLint configuration
+This repository uses **Husky** and **lint-staged** to ensure that no "broken" or poorly formatted code reaches GitHub.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 🛡️ Git Hooks & Safety Gates
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+We have implemented three distinct layers of automation:
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. **Pre-commit (`.husky/pre-commit`)**:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Triggers `lint-staged`.
+- Runs `eslint --fix` on only the files you have modified.
+- **Goal**: Instant feedback and auto-formatting before the code is even saved to your history.
+
+2. **Commit Message (`.husky/commit-msg`)**:
+
+- Triggers `commitlint`.
+- Validates your message against **Conventional Commit** standards.
+- **Goal**: Maintain a clean, searchable history for your Calgary asset updates.
+
+3. **Pre-push (`.husky/pre-push`)**:
+
+- Runs `npm run lint` (Whole project scan).
+- Runs `npm run build` (Production bundle test).
+- **Goal**: Final verification that the app is production-ready before pushing to `main`.
+
+---
+
+## 📝 Commit Convention
+
+We follow the **Conventional Commits** specification. Messages must follow this format:
+
+`type: description`
+
+| Type         | Purpose                                                | Example                                   |
+| ------------ | ------------------------------------------------------ | ----------------------------------------- |
+| **feat**     | A new feature for the comparator (e.g., Excel upload). | `feat: add xlsx parsing utility`          |
+| **fix**      | A bug fix (e.g., repairing a broken hook).             | `fix: resolve node version mismatch`      |
+| **docs**     | Documentation changes only.                            | `docs: update readme with husky guide`    |
+| **style**    | Changes that do not affect the meaning of the code.    | `style: update layout for sim list table` |
+| **refactor** | Code changes that neither fix a bug nor add a feature. | `refactor: optimize imei comparison loop` |
+
+---
+
+---
+
+## 🏁 Getting Started
+
+1. **Install Dependencies**:
+
+```bash
+npm install
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. **Run Dev Environment**:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+
+3. **Verify Hooks**:
+   Make a small change and try `git commit -m "update"`. It should fail, proving the **commitlint** gate is working.
+
+---
