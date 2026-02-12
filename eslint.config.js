@@ -1,23 +1,24 @@
-import js from "@eslint/js";
-import globals from "globals";
-import reactHooks from "eslint-plugin-react-hooks";
-import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
-import { defineConfig } from "eslint/config";
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+import { defineConfig } from 'eslint/config';
+import prettier from 'eslint-plugin-prettier/recommended';
 
 export default defineConfig([
   {
-    ignores: ["dist", "node_modules", "public", "temp", "*.config.js"],
+    ignores: ['dist', 'node_modules', 'public', 'temp', '*.config.js'],
   },
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
     ],
     plugins: {
-      "react-refresh": reactRefresh,
+      'react-refresh': reactRefresh,
     },
     languageOptions: {
       ecmaVersion: 2020,
@@ -25,10 +26,8 @@ export default defineConfig([
     },
     rules: {
       ...reactHooks.configs.flat.recommended.rules,
-      "react-refresh/only-export-components": [
-        "warn",
-        { allowConstantExport: true },
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+  prettier,
 ]);
