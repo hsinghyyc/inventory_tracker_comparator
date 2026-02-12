@@ -1,6 +1,6 @@
 # 📱 Inventory Tracker Comparator
 
-A specialized React + TypeScript dashboard designed to synchronize and compare third-party Excel inventory data against the **SIM List** and **Cell Phone** records stored in your .NET backend.
+A specialized React + TypeScript dashboard designed to synchronize and compare third-party Excel inventory data against the records stored in your Inventory Tracker.
 
 ---
 
